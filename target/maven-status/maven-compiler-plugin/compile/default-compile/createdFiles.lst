@@ -1,0 +1,10 @@
+abstractclass\Conteudo.class
+servlets\CadastroClienteServlet.class
+model\Cartao.class
+dao\UsuarioDao.class
+utils\HibernateUtil.class
+model\Biblioteca.class
+model\Dlc.class
+model\Jogo.class
+model\Usuario.class
+model\Carrinho.class
