@@ -18,6 +18,12 @@ public class Usuario extends Entidade {
     private String senha;
     private LocalDate dataNascimento;
     private LocalDate dataCadastro;
+    @OneToMany(mappedBy = "criadoPor")
+    private List<Conteudo> conteudosCriados = new ArrayList<>();
+
+    @OneToMany(mappedBy = "alteradoPor")
+    private List<Conteudo> conteudosAlterados = new ArrayList<>();
+
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cartao> cartoes;

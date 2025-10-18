@@ -13,12 +13,12 @@ dao\DlcDAO.class
 model\Cartao.class
 utils\HibernateUtil.class
 model\Biblioteca.class
-dao\UsuarioDAO.class
-common\ConnectionFactory.class
 dao\GenericDAO.class
 servlets\GenericServlet$1.class
 servlets\LoginServlet.class
 utils\DateUtils.class
 servlets\jogo\JogoServlet.class
+startup\StartupListener.class
 servlets\dlc\DlcServlet.class
+dao\UsuarioDao.class
 servlets\GenericServlet.class

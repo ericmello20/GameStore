@@ -9,8 +9,9 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 public class Jogo extends Conteudo {
-    @OneToMany(mappedBy = "dlc", cascade = CascadeType.ALL, orphanRemoval = true)
-    public List<Dlc> dlcs = new ArrayList<Dlc>();
+    @OneToMany(mappedBy = "jogobase", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Dlc> dlcs = new ArrayList<>();
+
 
     public Jogo(String nome, String desenvolvedora, String descricao,
             double valor, double pCusto) {

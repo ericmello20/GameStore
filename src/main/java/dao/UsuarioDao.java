@@ -2,9 +2,9 @@ package dao;
 
 import model.Usuario;
 
-public class UsuarioDAO extends GenericDAO<Usuario> {
+public class UsuarioDao extends GenericDAO<Usuario> {
 
-    public UsuarioDAO() {
+    public UsuarioDao() {
         super(Usuario.class);
     }
 }

@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import model.Cartao;
 import model.Usuario;
 import servlets.GenericServlet;
-import dao.UsuarioDAO;
+import dao.UsuarioDao;
 
 @WebServlet("/cartao")
 public class CartaoServlet extends GenericServlet<Cartao> {
@@ -31,7 +31,7 @@ public class CartaoServlet extends GenericServlet<Cartao> {
             try {
                 int clienteId = Integer.parseInt(clienteIdStr);
 
-                UsuarioDAO usuarioDAO = new UsuarioDAO();
+                UsuarioDao usuarioDAO = new UsuarioDao();
                 Usuario cliente = usuarioDAO.buscarPorId(clienteId);
 
                 cartao.setCliente(cliente);

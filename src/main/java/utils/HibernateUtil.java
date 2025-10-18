@@ -5,7 +5,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 public class HibernateUtil {
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("meuPU");
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("gamePU");
 
     public static EntityManager getEntityManager() {
         return emf.createEntityManager();

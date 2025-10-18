@@ -25,6 +25,13 @@
         class="senha"
         required
       /><br />
+      <label for="data_nascimento">Nascimento: </label>
+      <input
+        type="date"
+        name="data_nascimento"
+        id="data_nascimento"
+        class="data_nascimento"
+        required><br />
       <button type="submit">Enviar</button>
     </form>
   </body>
