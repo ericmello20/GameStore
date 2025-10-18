@@ -1,21 +1,21 @@
 package model;
 
-public class Cartao {
-    private int id;
+import java.time.LocalDate;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+@Entity
+public class Cartao extends Entidade {
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "cliente_id")
+    private Usuario cliente;
     private String bandeira;
     private String numero;
     private String cvv;
-    // private String validade; // ainda nao sei mexer com datas, por isso esta
-    // comentada essa linha
+    private LocalDate validade;
     private String cpfTitular;
-
-    public int getId() {
-        return this.id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getBandeira() {
         return this.bandeira;
@@ -41,21 +41,24 @@ public class Cartao {
         this.cvv = cvv;
     }
 
-    /*
-     * public String getValidade() {
-     * return this.validade;
-     * }
-     * public void setValidade(String validade) {
-     * this.validade = validade;
-     * }
-     */
-    
+    public LocalDate getValidade() {
+        return this.validade;
+    }
+
+    public void setValidade(LocalDate validade) {
+        this.validade = validade;
+    }
+
     public String getCpfTitular() {
         return this.cpfTitular;
     }
 
     public void setCpfTitular(String cpfTitular) {
         this.cpfTitular = cpfTitular;
+    }
+
+    public void setCliente(Usuario cliente) {
+        this.cliente = cliente;
     }
 
 }

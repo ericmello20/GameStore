@@ -1,18 +1,12 @@
 package model;
 
-public class Carrinho {
-    private int id;
+import jakarta.persistence.Entity;
+
+@Entity
+public class Carrinho extends Entidade{
     private String nome;
     private String tipo; // Ex: "Jogo", "DLC"
     private double preco;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getNome() {
         return nome;

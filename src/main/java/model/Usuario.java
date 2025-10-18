@@ -1,46 +1,38 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Transient;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 @DiscriminatorValue("Cliente")
-public class Usuario extends Entidade{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Usuario extends Entidade {
     private String nome;
     private String email;
     private String senha;
-    @Transient
-    private List<Cartao> cartoes;
-    // private LocalDate dataCadastro;
-    @Transient
-    private Biblioteca biblioteca;
-    // private LocalDate dataNascimento;
+    private LocalDate dataNascimento;
+    private LocalDate dataCadastro;
 
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Cartao> cartoes;
+
+    // UM PARA UM COM BIBLIOTECA POIS OS USUARIOS TERAO APENAS UMA BIBLIOTECA
+    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private Biblioteca biblioteca;
+
+    // CONSTRUTOR
     public Usuario(String nome, String email, String senha) {
         cartoes = new ArrayList<Cartao>();
         biblioteca = new Biblioteca();
         setNome(nome);
         setEmail(email);
         setSenha(senha);
-
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getNome() {
@@ -74,22 +66,22 @@ public class Usuario extends Entidade{
     public void setCartoes(List<Cartao> cartoes) {
         this.cartoes = cartoes;
     }
-    /*
-     * public LocalDate getDataCadastro() {
-     * return this.dataCadastro;
-     * }
-     * 
-     * public void setDataCadastro(LocalDate dataCadastro) {
-     * this.dataCadastro = dataCadastro;
-     * }
-     * public String getDataNascimento() {
-     * return this.dataNascimento;
-     * }
-     * 
-     * public void setDataNascimento(String dataNascimento) {
-     * this.dataNascimento = dataNascimento;
-     * }
-     */
+
+    public LocalDate getDataCadastro() {
+        return this.dataCadastro;
+    }
+
+    public void setDataCadastro(LocalDate dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+
+    public LocalDate getDataNascimento() {
+        return this.dataNascimento;
+    }
+
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
 
     public Biblioteca getBiblioteca() {
         return this.biblioteca;

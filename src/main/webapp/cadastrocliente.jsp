@@ -6,7 +6,7 @@
     <title>Cadastre-se</title>
   </head>
   <body>
-    <form action="cadastrocliente" method="post">
+    <form action="cliente" method="post">
       <label for="nome">Nome: </label>
       <input type="text" name="nome" id="nome" class="nome" required /><br />
       <label for="email">Email: </label>
