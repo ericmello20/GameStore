@@ -11,33 +11,39 @@ import java.util.List;
 import dao.GenericDAO;
 
 public abstract class GenericServlet<T extends Entidade> extends HttpServlet {
-
     protected GenericDAO<T> dao;
     private Class<T> clazz;
 
     @SuppressWarnings("unchecked")
     public GenericServlet() {
-        this.clazz = (Class<T>) ((ParameterizedType) getClass()
-                .getGenericSuperclass()).getActualTypeArguments()[0];
+        this.clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass())
+                .getActualTypeArguments()[0];
         this.dao = new GenericDAO<T>(clazz) {
+
         };
+
     }
 
     // método utilitário para pegar o usuário logado
     protected Usuario getUsuarioLogado(HttpServletRequest request) {
         return (Usuario) request.getSession().getAttribute("usuarioLogado");
+
     }
 
-    // método abstrato que cada servlet concreto implementa
     protected abstract T preencherEntidade(HttpServletRequest request);
 
+    protected void inserirBibliotecaJogo(T entidade, Usuario Usuario) {
+
+    }
+
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String acao = request.getParameter("acao");
         if (acao == null)
-            acao = "listar"; // comportamento padrão
+            acao = "listar";
         Usuario usuario = getUsuarioLogado(request);
+        String urlSubmit = request.getContextPath() + "/" + clazz.getSimpleName().toLowerCase();
+        request.setAttribute("urlSubmit", urlSubmit);
         if (usuario == null) {
             /**
              * Implementar redirecionamento para página de acesso negado. Faremos mais para
@@ -46,64 +52,93 @@ public abstract class GenericServlet<T extends Entidade> extends HttpServlet {
              * return;
              */
         }
+
         try {
-            switch (acao) {
-                case "deletar":
-                    int id = Integer.parseInt(request.getParameter("id"));
-                    dao.deletar(id);
-                    response.sendRedirect(clazz.getSimpleName().toLowerCase() + "?acao=listar");
-                    break;
+            if (acao.equals("inserir")) {
+                try {
+                    request.getRequestDispatcher(clazz.getSimpleName().toLowerCase() + "/form.jsp").forward(request,
+                            response);
 
-                case "listar":
-                    List<T> lista = dao.listarTodos();
-                    request.setAttribute("lista", lista);
-                    try {
-                        request.getRequestDispatcher("/" + clazz.getSimpleName().toLowerCase() + "/lista.jsp")
-                                .forward(request, response);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    break;
+                } catch (Exception e) {
+                    e.printStackTrace();
 
-                case "buscar":
-                    int idBuscar = Integer.parseInt(request.getParameter("id"));
-                    T entidade = dao.buscarPorId(idBuscar);
-                    request.setAttribute("entidade", entidade);
-                    try {
-                        request.getRequestDispatcher("/" + clazz.getSimpleName().toLowerCase() + "/form.jsp")
-                                .forward(request, response);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    break;
+                }
+
             }
+
+            else if (acao.equals("listar")) {
+                List<T> lista = dao.listarTodos();
+                request.setAttribute("lista", lista);
+                try {
+                    request.getRequestDispatcher(clazz.getSimpleName().toLowerCase() + "/lista.jsp").forward(request,
+                            response);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
+
+            }
+
+            else if (acao.equals("listarPorId")) {
+                int idBuscar = Integer.parseInt(request.getParameter("id"));
+                T entidade = dao.buscarPorId(idBuscar);
+                request.setAttribute("entidade", entidade);
+                try {
+                    request.getRequestDispatcher(clazz.getSimpleName().toLowerCase() + "/form.jsp").forward(request,
+                            response);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
+
+            }
+
+            else if (acao.equals("deletar")) {
+                int id = Integer.parseInt(request.getParameter("id"));
+                dao.deletar(id);
+                response.sendRedirect(urlSubmit + "?acao=listar");
+
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("erro.jsp");
+            // response.sendRedirect("erro.jsp");
+
         }
+
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String acao = request.getParameter("acao");
         Usuario usuario = getUsuarioLogado(request);
+        String urlSubmit = request.getContextPath() + "/" + clazz.getSimpleName().toLowerCase();
+        request.setAttribute("urlSubmit", urlSubmit);
 
         try {
-            switch (acao) {
-                case "cadastrar":
-                    T entidade = preencherEntidade(request);
-                    dao.salvar(entidade, usuario);
-                    break;
-                case "editar":
-                    T entidadeAtualizada = preencherEntidade(request);
-                    dao.atualizar(entidadeAtualizada, usuario);
-                    break;
+            if (acao.equals("cadastrar")) {
+                T entidade = preencherEntidade(request);
+                dao.salvar(entidade, usuario);
+                inserirBibliotecaJogo(entidade, usuario);
+
             }
-            response.sendRedirect(clazz.getSimpleName().toLowerCase() + "?acao=listar");
+
+            else if (acao.equals("atualizar")) {
+                T entidadeAtualizada = preencherEntidade(request);
+                dao.atualizar(entidadeAtualizada, usuario);
+
+            }
+
+            response.sendRedirect(urlSubmit + "?acao=listar");
+
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("erro.jsp");
+            // response.sendRedirect("erro.jsp");
+
         }
+
     }
+
 }

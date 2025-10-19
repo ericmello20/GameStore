@@ -4,10 +4,11 @@ import java.time.LocalDate;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
+
 import model.Usuario;
 import servlets.GenericServlet;
 
-@WebServlet("/cliente")
+@WebServlet("/usuario")
 public class ClienteServlet extends GenericServlet<Usuario> {
 
     @Override

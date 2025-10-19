@@ -12,14 +12,14 @@
         <h2>x</h2>
         <h2>Listagens</h2>
         <ul>
-            <li><a href="http://localhost:8080/game/cliente/form-cliente.jsp">Cadastrar Clientes</a></li>
-            <li><a href="http://localhost:8080/game/cliente/listar-cliente.jsp">Listar Clientes</a></li><br><br>
-            <li><a href="http://localhost:8080/game/cartao/form-cartao.jsp">Cadastrar Cartao</a></li>
-            <li><a href="http://localhost:8080/game/cartao/listar-cartao.jsp">Listar Cartao</a></li><br><br>
-            <li><a href="http://localhost:8080/game/jogo/form-jogo.jsp">Cadastrar Jogos</a></li>
-            <li><a href="http://localhost:8080/game/jogo/listar-jogo.jsp">Listar Jogos</a></li><br><br>
-            <li><a href="http://localhost:8080/game/dlc/form-dlc.jsp">Cadastrar DLCs</a></li>
-            <li><a href="http://localhost:8080/game/dlc/listar-dlc.jsp">Listar DLCs</a></li>
+            <li><a href="http://localhost:8080/game/usuario/form.jsp">Cadastrar Clientes</a></li>
+            <li><a href="http://localhost:8080/game/usuario/lista.jsp">Listar Clientes</a></li><br><br>
+            <li><a href="http://localhost:8080/game/cartao/form.jsp">Cadastrar Cartao</a></li>
+            <li><a href="http://localhost:8080/game/cartao/lista.jsp">Listar Cartao</a></li><br><br>
+            <li><a href="http://localhost:8080/game/jogo/form.jsp">Cadastrar Jogos</a></li>
+            <li><a href="http://localhost:8080/game/jogo/lista.jsp">Listar Jogos</a></li><br><br>
+            <li><a href="http://localhost:8080/game/dlc/form.jsp">Cadastrar DLCs</a></li>
+            <li><a href="http://localhost:8080/game/dlc/lista.jsp">Listar DLCs</a></li>
 
         </ul>
 
