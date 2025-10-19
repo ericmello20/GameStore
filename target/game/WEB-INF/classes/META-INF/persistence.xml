@@ -33,10 +33,15 @@
             <!-- 🧾 Mostrar SQL no console -->
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.use_sql_comments" value="true"/>
 
             <!-- 🚫 Desabilita cache (opcional, pra estudo) -->
             <property name="hibernate.cache.use_second_level_cache" value="false"/>
             <property name="hibernate.cache.use_query_cache" value="false"/>
+            
+            <!-- Log de debug para diagnosticar problemas -->
+            <property name="hibernate.generate_statistics" value="true"/>
+            <property name="hibernate.connection.autocommit" value="false"/>
         </properties>
 
     </persistence-unit>

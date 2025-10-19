@@ -1,6 +1,8 @@
 package dao;
 
 import java.util.List;
+
+
 import jakarta.persistence.EntityManager;
 import model.Entidade;
 import model.Usuario;
@@ -18,6 +20,8 @@ public abstract class GenericDAO<T extends Entidade> {
         EntityManager entityManager = HibernateUtil.getEntityManager();
         try {
             entityManager.getTransaction().begin();
+            entidade.setCriadoPor(usuario);
+            entidade.setDataCriacao(java.time.LocalDate.now());
             entityManager.persist(entidade); // antes: save()
             entityManager.getTransaction().commit();
         } catch (Exception e) {
@@ -30,6 +34,8 @@ public abstract class GenericDAO<T extends Entidade> {
     public void atualizar(T entidade, Usuario usuario) {
         EntityManager entityManager = HibernateUtil.getEntityManager();
         entityManager.getTransaction().begin();
+        entidade.setAlteradoPor(usuario);
+        entidade.setDataUltimaAlteracao(java.time.LocalDate.now());
         entityManager.merge(entidade); // antes: update()
         entityManager.getTransaction().commit();
 

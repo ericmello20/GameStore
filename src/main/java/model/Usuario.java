@@ -5,25 +5,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
-@DiscriminatorValue("Cliente")
 public class Usuario extends Entidade {
+    @jakarta.persistence.Column(nullable = false)
     private String nome;
+    
+    @jakarta.persistence.Column(nullable = false, unique = true)
     private String email;
+    
+    @jakarta.persistence.Column(nullable = false)
     private String senha;
+    
+    @jakarta.persistence.Column(name = "data_nascimento")
     private LocalDate dataNascimento;
-    private LocalDate dataCadastro;
+
     @OneToMany(mappedBy = "criadoPor")
     private List<Conteudo> conteudosCriados = new ArrayList<>();
 
     @OneToMany(mappedBy = "alteradoPor")
     private List<Conteudo> conteudosAlterados = new ArrayList<>();
-
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cartao> cartoes;
@@ -32,13 +36,20 @@ public class Usuario extends Entidade {
     @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
     private Biblioteca biblioteca;
 
-    // CONSTRUTOR
-    public Usuario(String nome, String email, String senha) {
+    // Construtor padrão necessário para o JPA
+    public Usuario() {
         cartoes = new ArrayList<Cartao>();
         biblioteca = new Biblioteca();
+        configurarBiblioteca();
+    }
+
+    // CONSTRUTOR
+    public Usuario(String nome, String email, String senha, LocalDate dataNascimento) {
+        this(); // chama o construtor padrão
         setNome(nome);
         setEmail(email);
         setSenha(senha);
+        setDataNascimento(dataNascimento);
     }
 
     public String getNome() {
@@ -47,6 +58,13 @@ public class Usuario extends Entidade {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    // Método para configurar corretamente o relacionamento bidirecional
+    private void configurarBiblioteca() {
+        if (this.biblioteca != null) {
+            this.biblioteca.setCliente(this);
+        }
     }
 
     public String getEmail() {
@@ -71,14 +89,6 @@ public class Usuario extends Entidade {
 
     public void setCartoes(List<Cartao> cartoes) {
         this.cartoes = cartoes;
-    }
-
-    public LocalDate getDataCadastro() {
-        return this.dataCadastro;
-    }
-
-    public void setDataCadastro(LocalDate dataCadastro) {
-        this.dataCadastro = dataCadastro;
     }
 
     public LocalDate getDataNascimento() {

@@ -39,6 +39,7 @@ public class CartaoServlet extends GenericServlet<Cartao> {
                 e.printStackTrace();
             }
         }
+        cartao.setDataCriacao(LocalDate.now());
 
         return cartao;
     }

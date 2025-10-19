@@ -1,12 +1,12 @@
 package servlets;
 
+
 import jakarta.servlet.http.*;
 import model.Entidade;
 import model.Usuario;
 
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
-import java.time.LocalDate;
 import java.util.List;
 
 import dao.GenericDAO;
@@ -40,9 +40,12 @@ public abstract class GenericServlet<T extends Entidade> extends HttpServlet {
             acao = "listar"; // comportamento padrão
         Usuario usuario = getUsuarioLogado(request);
         if (usuario == null) {
-            // Implementar redirecionamento para página de acesso negado, se necessário
-            // response.sendRedirect("acesso-negado.jsp");
-            // return;
+            /**
+             * Implementar redirecionamento para página de acesso negado. Faremos mais para
+             * frente
+             * response.sendRedirect("acesso-negado.jsp");
+             * return;
+             */
         }
         try {
             switch (acao) {
@@ -91,15 +94,10 @@ public abstract class GenericServlet<T extends Entidade> extends HttpServlet {
             switch (acao) {
                 case "cadastrar":
                     T entidade = preencherEntidade(request);
-                    entidade.setDataCriacao(LocalDate.now());
-                    entidade.setCriadoPor(usuario);
                     dao.salvar(entidade, usuario);
                     break;
-
                 case "editar":
                     T entidadeAtualizada = preencherEntidade(request);
-                    entidadeAtualizada.setDataUltimaAlteracao(LocalDate.now());
-                    entidadeAtualizada.setAlteradoPor(usuario);
                     dao.atualizar(entidadeAtualizada, usuario);
                     break;
             }

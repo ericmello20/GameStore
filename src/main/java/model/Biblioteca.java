@@ -22,4 +22,12 @@ public class Biblioteca extends Entidade{
     inverseJoinColumns = @JoinColumn(name = "conteudo_id")
     )
     private List<Conteudo> conteudos = new ArrayList<>();
+
+    public void setCliente(Usuario cliente) {
+        this.cliente = cliente;
+    }
+
+    public Usuario getCliente() {
+        return this.cliente;
+    }
 }

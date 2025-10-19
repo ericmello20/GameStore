@@ -13,6 +13,7 @@ dao\DlcDAO.class
 model\Cartao.class
 utils\HibernateUtil.class
 model\Biblioteca.class
+common\ConnectionFactory.class
 dao\GenericDAO.class
 servlets\GenericServlet$1.class
 servlets\LoginServlet.class

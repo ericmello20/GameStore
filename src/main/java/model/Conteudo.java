@@ -21,7 +21,6 @@ public abstract class Conteudo extends Entidade {
     @ManyToMany
     @JoinTable(name = "Biblioteca_Conteudo", joinColumns = @JoinColumn(name = "conteudo_id"), inverseJoinColumns = @JoinColumn(name = "biblioteca_id"))
     private List<Biblioteca> biblioteca = new ArrayList<Biblioteca>();
-    private LocalDate dataCadastro;
     private LocalDate dataLancamento;
 
     public Conteudo(String nome, String desenvolvedora, String descricao,
@@ -72,14 +71,6 @@ public abstract class Conteudo extends Entidade {
 
     public void setPCusto(double pCusto) {
         this.pCusto = pCusto;
-    }
-
-    public LocalDate getDataCadastro() {
-        return this.dataCadastro;
-    }
-
-    public void setDataCadastro(LocalDate dataCadastro) {
-        this.dataCadastro = dataCadastro;
     }
 
     public LocalDate getDataLancamento() {

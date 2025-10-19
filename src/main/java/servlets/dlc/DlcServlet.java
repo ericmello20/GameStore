@@ -28,7 +28,7 @@ public class DlcServlet extends GenericServlet<Dlc> {
             dlc.setDataLancamento(LocalDate.parse(dataLancStr));
         }
 
-        dlc.setDataCadastro(LocalDate.now());
+        dlc.setDataCriacao(LocalDate.now());
 
         String jogoIdStr = request.getParameter("jogo_id");
         if (jogoIdStr != null && !jogoIdStr.isEmpty()) {
