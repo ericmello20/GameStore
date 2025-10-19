@@ -1,9 +1,6 @@
 package model;
 
-import jakarta.persistence.Entity;
-
-@Entity
-public class Carrinho extends Entidade{
+public class Carrinho {
     private String nome;
     private String tipo; // Ex: "Jogo", "DLC"
     private double preco;

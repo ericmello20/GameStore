@@ -9,18 +9,13 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 
-
 @Entity
-public class Biblioteca extends Entidade{
+public class Biblioteca extends Entidade {
     @OneToOne
     @JoinColumn(name = "cliente_id", unique = true)
     private Usuario cliente;
     @ManyToMany
-    @JoinTable(
-    name = "Biblioteca_Conteudo",
-    joinColumns = @JoinColumn(name = "biblioteca_id"),
-    inverseJoinColumns = @JoinColumn(name = "conteudo_id")
-    )
+    @JoinTable(name = "Biblioteca_Conteudo", joinColumns = @JoinColumn(name = "biblioteca_id"), inverseJoinColumns = @JoinColumn(name = "conteudo_id"))
     private List<Conteudo> conteudos = new ArrayList<>();
 
     public void setCliente(Usuario cliente) {
@@ -30,4 +25,13 @@ public class Biblioteca extends Entidade{
     public Usuario getCliente() {
         return this.cliente;
     }
+
+    public List<Conteudo> getConteudos() {
+        return this.conteudos;
+    }
+
+    public void setConteudos(List<Conteudo> conteudos) {
+        this.conteudos = conteudos;
+    }
+
 }

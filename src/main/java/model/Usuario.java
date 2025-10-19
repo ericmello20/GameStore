@@ -13,13 +13,13 @@ import jakarta.persistence.OneToOne;
 public class Usuario extends Entidade {
     @jakarta.persistence.Column(nullable = false)
     private String nome;
-    
+
     @jakarta.persistence.Column(nullable = false, unique = true)
     private String email;
-    
+
     @jakarta.persistence.Column(nullable = false)
     private String senha;
-    
+
     @jakarta.persistence.Column(name = "data_nascimento")
     private LocalDate dataNascimento;
 
@@ -105,6 +105,22 @@ public class Usuario extends Entidade {
 
     public void setBiblioteca(Biblioteca biblioteca) {
         this.biblioteca = biblioteca;
+    }
+
+    public List<Conteudo> getConteudosCriados() {
+        return this.conteudosCriados;
+    }
+
+    public void setConteudosCriados(List<Conteudo> conteudosCriados) {
+        this.conteudosCriados = conteudosCriados;
+    }
+
+    public List<Conteudo> getConteudosAlterados() {
+        return this.conteudosAlterados;
+    }
+
+    public void setConteudosAlterados(List<Conteudo> conteudosAlterados) {
+        this.conteudosAlterados = conteudosAlterados;
     }
 
 }

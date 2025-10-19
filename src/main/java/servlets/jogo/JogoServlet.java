@@ -19,7 +19,7 @@ public class JogoServlet extends GenericServlet<Jogo> {
                 request.getParameter("descricao"),
                 Double.parseDouble(request.getParameter("valor")),
                 Double.parseDouble(request.getParameter("pCusto")));
-
+        jogo.setId(request.getParameter("id") != null ? Integer.parseInt(request.getParameter("id")) : 0);
         String dataLancStr = request.getParameter("dataLancamento");
         if (dataLancStr != null && !dataLancStr.isEmpty()) {
             jogo.setDataLancamento(LocalDate.parse(dataLancStr));

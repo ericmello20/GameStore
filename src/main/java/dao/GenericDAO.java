@@ -2,67 +2,79 @@ package dao;
 
 import java.util.List;
 
-
 import jakarta.persistence.EntityManager;
 import model.Entidade;
 import model.Usuario;
 import utils.HibernateUtil;
 
 public abstract class GenericDAO<T extends Entidade> {
-    private final Class<T> clazz; // precisamos guardar a classe real
+    private final Class<T> classe;
 
-    // construtor recebe a classe concreta
-    public GenericDAO(Class<T> clazz) {
-        this.clazz = clazz;
+    public GenericDAO(Class<T> classe) {
+        this.classe = classe;
+
     }
 
-    public void salvar(T entidade, Usuario usuario) {
+    public void salvar(T entidade, Usuario conta) {
         EntityManager entityManager = HibernateUtil.getEntityManager();
         try {
             entityManager.getTransaction().begin();
-            entidade.setCriadoPor(usuario);
+            entidade.setCriadoPor(conta);
             entidade.setDataCriacao(java.time.LocalDate.now());
-            entityManager.persist(entidade); // antes: save()
+            entityManager.persist(entidade);
             entityManager.getTransaction().commit();
+
         } catch (Exception e) {
             if (entityManager.getTransaction().isActive())
                 entityManager.getTransaction().rollback();
             e.printStackTrace();
+
         }
     }
 
-    public void atualizar(T entidade, Usuario usuario) {
+    public void atualizar(T entidade, Usuario conta) {
         EntityManager entityManager = HibernateUtil.getEntityManager();
         entityManager.getTransaction().begin();
-        entidade.setAlteradoPor(usuario);
+        entidade.setAlteradoPor(conta);
         entidade.setDataUltimaAlteracao(java.time.LocalDate.now());
-        entityManager.merge(entidade); // antes: update()
+        entityManager.merge(entidade);
         entityManager.getTransaction().commit();
 
     }
 
     public void deletar(int id) {
-
         EntityManager entityManager = HibernateUtil.getEntityManager();
         entityManager.getTransaction().begin();
-        T usuario = entityManager.find(clazz, id);
-        if (usuario != null) {
-            entityManager.remove(usuario); // antes: delete()
-        }
+        T usuario = entityManager.find(classe, id);
+        if (usuario != null)
+            entityManager.remove(usuario);
         entityManager.getTransaction().commit();
+
+    }
+
+    public List<T> listarTodos() {
+        try (EntityManager entityManager = HibernateUtil.getEntityManager()) {
+            return entityManager.createQuery("FROM " + classe.getSimpleName(), classe).getResultList();
+
+        }
 
     }
 
     public T buscarPorId(int id) {
         try (EntityManager entityManager = HibernateUtil.getEntityManager()) {
-            return entityManager.find(clazz, id);
+            return entityManager.find(classe, id);
+
         }
+
     }
 
-    public List<T> listarTodos() {
+    public List<T> listarPorTipo(String tipo) {
         try (EntityManager entityManager = HibernateUtil.getEntityManager()) {
-            return entityManager.createQuery("from " + clazz.getSimpleName(), clazz)
+            return entityManager.createQuery("FROM " + classe.getSimpleName() + "WHERE tipo = " + tipo, classe)
                     .getResultList();
+
         }
+
     }
+
 }

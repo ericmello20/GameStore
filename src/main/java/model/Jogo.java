@@ -9,13 +9,21 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 public class Jogo extends Conteudo {
-    @OneToMany(mappedBy = "jogobase", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "jogoBase", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Dlc> dlcs = new ArrayList<>();
-
 
     public Jogo(String nome, String desenvolvedora, String descricao,
             double valor, double pCusto) {
         super(nome, desenvolvedora, descricao,
                 valor, pCusto);
     }
+
+    public List<Dlc> getDlcs() {
+        return this.dlcs;
+    }
+
+    public void setDlcs(List<Dlc> dlcs) {
+        this.dlcs = dlcs;
+    }
+
 }

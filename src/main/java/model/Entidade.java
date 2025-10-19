@@ -14,7 +14,7 @@ public class Entidade {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    
+
     private LocalDate dataCriacao;
     private LocalDate dataUltimaAlteracao;
     @ManyToOne
@@ -64,4 +64,5 @@ public class Entidade {
     public void setAlteradoPor(Usuario alteradoPor) {
         this.alteradoPor = alteradoPor;
     }
+
 }

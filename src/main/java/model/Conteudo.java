@@ -33,6 +33,14 @@ public abstract class Conteudo extends Entidade {
 
     }
 
+    public List<Biblioteca> getBiblioteca() {
+        return this.biblioteca;
+    }
+
+    public void setBiblioteca(List<Biblioteca> biblioteca) {
+        this.biblioteca = biblioteca;
+    }
+
     public String getNome() {
         return this.nome;
     }

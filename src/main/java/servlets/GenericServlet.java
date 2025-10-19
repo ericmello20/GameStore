@@ -1,6 +1,5 @@
 package servlets;
 
-
 import jakarta.servlet.http.*;
 import model.Entidade;
 import model.Usuario;

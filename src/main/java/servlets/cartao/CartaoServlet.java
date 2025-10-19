@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import model.Cartao;
 import model.Usuario;
 import servlets.GenericServlet;
-import dao.UsuarioDao;
+import dao.UsuarioDAO;
 
 @WebServlet("/cartao")
 public class CartaoServlet extends GenericServlet<Cartao> {
@@ -15,6 +15,8 @@ public class CartaoServlet extends GenericServlet<Cartao> {
     @Override
     protected Cartao preencherEntidade(HttpServletRequest request) {
         Cartao cartao = new Cartao();
+
+        cartao.setId(request.getParameter("id") != null ? Integer.parseInt(request.getParameter("id")) : 0);
 
         cartao.setBandeira(request.getParameter("bandeira"));
         cartao.setNumero(request.getParameter("numero"));
@@ -31,7 +33,7 @@ public class CartaoServlet extends GenericServlet<Cartao> {
             try {
                 int clienteId = Integer.parseInt(clienteIdStr);
 
-                UsuarioDao usuarioDAO = new UsuarioDao();
+                UsuarioDAO usuarioDAO = new UsuarioDAO();
                 Usuario cliente = usuarioDAO.buscarPorId(clienteId);
 
                 cartao.setCliente(cliente);

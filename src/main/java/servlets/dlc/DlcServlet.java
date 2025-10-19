@@ -22,6 +22,8 @@ public class DlcServlet extends GenericServlet<Dlc> {
                 Double.parseDouble(request.getParameter("valor")),
                 Double.parseDouble(request.getParameter("pCusto")),
                 null);
+        
+        dlc.setId(request.getParameter("id") != null ? Integer.parseInt(request.getParameter("id")) : 0);
 
         String dataLancStr = request.getParameter("dataLancamento");
         if (dataLancStr != null && !dataLancStr.isEmpty()) {

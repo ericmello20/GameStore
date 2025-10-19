@@ -8,7 +8,7 @@ import jakarta.persistence.ManyToOne;
 public class Dlc extends Conteudo {
     @ManyToOne(optional = true)
     @JoinColumn(name = "jogo_id")
-    private Jogo jogobase;
+    private Jogo jogoBase;
 
     public Dlc(String nome, String desenvolvedora, String descricao,
             double valor, double pCusto, Jogo jogobase) {
@@ -17,12 +17,12 @@ public class Dlc extends Conteudo {
         setJogoBase(jogobase);
     }
 
-    public void setJogoBase(Jogo jogobase) {
-        this.jogobase = jogobase;
+    public Jogo getJogoBase() {
+        return this.jogoBase;
     }
 
-    public Jogo getJogobase() {
-        return this.jogobase;
+    public void setJogoBase(Jogo jogoBase) {
+        this.jogoBase = jogoBase;
     }
 
 }

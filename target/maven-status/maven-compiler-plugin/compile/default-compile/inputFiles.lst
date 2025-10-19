@@ -1,24 +1,24 @@
-C:\Projeto Game Store\GameStore\src\main\java\model\Entidade.java
-C:\Projeto Game Store\GameStore\src\main\java\model\Biblioteca.java
-C:\Projeto Game Store\GameStore\src\main\java\model\Jogo.java
-C:\Projeto Game Store\GameStore\src\main\java\servlets\jogo\JogoServlet.java
-C:\Projeto Game Store\GameStore\src\main\java\dao\GenericDAO.java
-C:\Projeto Game Store\GameStore\src\main\java\common\ConnectionFactory.java
-C:\Projeto Game Store\GameStore\src\main\java\servlets\dlc\DlcServlet.java
-C:\Projeto Game Store\GameStore\src\main\java\dao\BibliotecaDAO.java
-C:\Projeto Game Store\GameStore\src\main\java\model\Conteudo.java
-C:\Projeto Game Store\GameStore\src\main\java\model\Usuario.java
-C:\Projeto Game Store\GameStore\src\main\java\servlets\cliente\ClienteServlet.java
-C:\Projeto Game Store\GameStore\src\main\java\servlets\GenericServlet.java
-C:\Projeto Game Store\GameStore\src\main\java\dao\CartaoDAO.java
-C:\Projeto Game Store\GameStore\src\main\java\servlets\LoginServlet.java
-C:\Projeto Game Store\GameStore\src\main\java\dao\UsuarioDao.java
-C:\Projeto Game Store\GameStore\src\main\java\model\Cartao.java
-C:\Projeto Game Store\GameStore\src\main\java\startup\StartupListener.java
-C:\Projeto Game Store\GameStore\src\main\java\dao\JogoDAO.java
-C:\Projeto Game Store\GameStore\src\main\java\model\Carrinho.java
-C:\Projeto Game Store\GameStore\src\main\java\utils\DateUtils.java
-C:\Projeto Game Store\GameStore\src\main\java\dao\DlcDAO.java
-C:\Projeto Game Store\GameStore\src\main\java\servlets\cartao\CartaoServlet.java
-C:\Projeto Game Store\GameStore\src\main\java\model\Dlc.java
-C:\Projeto Game Store\GameStore\src\main\java\utils\HibernateUtil.java
+C:\game store\GameStore\src\main\java\common\ConnectionFactory.java
+C:\game store\GameStore\src\main\java\dao\BibliotecaDAO.java
+C:\game store\GameStore\src\main\java\dao\CartaoDAO.java
+C:\game store\GameStore\src\main\java\dao\DlcDAO.java
+C:\game store\GameStore\src\main\java\dao\GenericDAO.java
+C:\game store\GameStore\src\main\java\dao\JogoDAO.java
+C:\game store\GameStore\src\main\java\dao\UsuarioDAO.java
+C:\game store\GameStore\src\main\java\model\Biblioteca.java
+C:\game store\GameStore\src\main\java\model\Carrinho.java
+C:\game store\GameStore\src\main\java\model\Cartao.java
+C:\game store\GameStore\src\main\java\model\Conteudo.java
+C:\game store\GameStore\src\main\java\model\Dlc.java
+C:\game store\GameStore\src\main\java\model\Entidade.java
+C:\game store\GameStore\src\main\java\model\Jogo.java
+C:\game store\GameStore\src\main\java\model\Usuario.java
+C:\game store\GameStore\src\main\java\servlets\cartao\CartaoServlet.java
+C:\game store\GameStore\src\main\java\servlets\cliente\ClienteServlet.java
+C:\game store\GameStore\src\main\java\servlets\dlc\DlcServlet.java
+C:\game store\GameStore\src\main\java\servlets\GenericServlet.java
+C:\game store\GameStore\src\main\java\servlets\jogo\JogoServlet.java
+C:\game store\GameStore\src\main\java\servlets\LoginServlet.java
+C:\game store\GameStore\src\main\java\startup\StartupListener.java
+C:\game store\GameStore\src\main\java\utils\DateUtils.java
+C:\game store\GameStore\src\main\java\utils\HibernateUtil.java

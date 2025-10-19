@@ -17,6 +17,10 @@ public class Cartao extends Entidade {
     private LocalDate validade;
     private String cpfTitular;
 
+    public Usuario getCliente() {
+        return this.cliente;
+    }
+
     public String getBandeira() {
         return this.bandeira;
     }
