@@ -1,7 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-  <%@ page import="model.Dlc" %>
-    <%@ page import="model.Jogo" %>
-      <% Dlc dlc=(Dlc) request.getAttribute("entidade"); // Obtém a entidade DLC da requisição %>
+  <%@ page import="model.Dlc, model.Jogo, java.util.List" %>
+
+    <% Dlc dlc=(Dlc) request.getAttribute("entidade"); String urlSubmit=(String) request.getAttribute("urlSubmit"); if
+      (urlSubmit==null) { urlSubmit=request.getContextPath() + "/dlc" ; } List<Jogo> jogos = (List<Jogo>)
+        request.getAttribute("jogos");
+        %>
+
         <html lang="pt-br">
 
         <head>
@@ -10,7 +14,7 @@
           <title>
             <%= dlc==null ? "Cadastro" : "Edição" %> de DLC
           </title>
-          <link rel="stylesheet" href="./css/style.css">
+          <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
         </head>
 
         <body>
@@ -21,62 +25,70 @@
               </h1>
             </div>
 
-            <form action="<%= request.getAttribute("urlSubmit") %>" method="post">
+            <form action="<%= urlSubmit %>" method="post">
               <div class="principal-formulario">
-                <!-- ID -->
+
+
                 <input type="hidden" name="id" value="<%= dlc != null ? dlc.getId() : "" %>">
-                <!-- Ação (Cadastrar ou Editar) -->
+
+
                 <input type="hidden" name="acao" value="<%= dlc != null ? " atualizar" : "cadastrar" %>">
 
-                <!-- Nome -->
+
                 <div>
-                  <label for="nome">Nome: </label>
+                  <label for="nome">Nome:</label>
                   <input id="nome" type="text" name="nome" value="<%= dlc != null ? dlc.getNome() : "" %>" required>
                 </div>
 
-                <!-- Desenvolvedora -->
+
                 <div>
-                  <label for="desenvolvedora">Desenvolvedora: </label>
+                  <label for="desenvolvedora">Desenvolvedora:</label>
                   <input id="desenvolvedora" type="text" name="desenvolvedora"
                     value="<%= dlc != null ? dlc.getDesenvolvedora() : "" %>" required>
                 </div>
 
-                <!-- Descrição -->
+
                 <div>
-                  <label for="descricao">Descrição: </label>
-                  <input id="descricao" type="text" name="descricao"
-                    value="<%= dlc != null ? dlc.getDescricao() : "" %>" required>
+                  <label for="descricao">Descrição:</label>
+                  <textarea id="descricao" name="descricao" rows="4"
+                    required><%= dlc != null ? dlc.getDescricao() : "" %></textarea>
                 </div>
 
-                <!-- Valor -->
+
                 <div>
-                  <label for="valor">Valor: </label>
-                  <input id="valor" type="number" name="valor" step="0.01"
+                  <label for="valor">Valor (R$):</label>
+                  <input id="valor" type="number" step="0.01" name="valor"
                     value="<%= dlc != null ? dlc.getValor() : "" %>" required>
                 </div>
 
-                <!-- Custo -->
+
                 <div>
-                  <label for="custo">Custo: </label>
-                  <input id="custo" type="number" name="custo" step="0.01"
+                  <label for="pCusto">Preço de Custo (R$):</label>
+                  <input id="pCusto" type="number" step="0.01" name="pCusto"
                     value="<%= dlc != null ? dlc.getPCusto() : "" %>" required>
                 </div>
 
-                <!-- Jogo Base -->
+
                 <div>
-                  <label for="jogo_id">Jogo Base (ID): </label>
-                  <input id="jogo_id" type="number" name="jogo_id"
-                    value="<%= dlc != null && dlc.getJogoBase() != null ? dlc.getJogoBase().getId() : "" %>" required>
+                  <label for="jogo_id">Jogo Base:</label>
+                  <select id="jogo_id" name="jogo_id">
+                    <option value="">-- Selecione um jogo --</option>
+                    <% if (jogos !=null) { for (Jogo j : jogos) { boolean selecionado=(dlc !=null && dlc.getJogoBase()
+                      !=null && dlc.getJogoBase().getId()==j.getId()); %>
+                      <option value="<%= j.getId() %>" <%=selecionado ? "selected" : "" %>><%= j.getNome() %>
+                      </option>
+                      <% } } %>
+                  </select>
                 </div>
 
-                <!-- Data de Lançamento -->
+
                 <div>
-                  <label for="dataLancamento">Data de Lançamento: </label>
+                  <label for="dataLancamento">Data de Lançamento:</label>
                   <input type="date" id="dataLancamento" name="dataLancamento"
-                    value="<%= dlc != null ? dlc.getDataLancamento() : "" %>" required>
+                    value="<%= dlc != null && dlc.getDataLancamento() != null ? dlc.getDataLancamento() : "" %>">
                 </div>
 
-                <!-- Botão de envio -->
+
                 <div>
                   <button type="submit">
                     <%= dlc==null ? "Cadastrar" : "Editar" %>

@@ -24,7 +24,13 @@ public class ClienteServlet extends GenericServlet<Usuario> {
         }
 
         Usuario usuario = new Usuario(nome, email, senha, dataNascimento);
-        usuario.setId(request.getParameter("id") != null ? Integer.parseInt(request.getParameter("id")) : 0);
+        String idStr = request.getParameter("id");
+        if (idStr != null && !idStr.trim().isEmpty()) {
+            usuario.setId(Integer.parseInt(idStr));
+        }
+        // caso contrário NÃO chame setId(...) — mantenha id como null para novas
+        // entidades
+
         usuario.setDataCriacao(LocalDate.now());
 
         return usuario;
