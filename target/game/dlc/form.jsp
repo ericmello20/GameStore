@@ -32,7 +32,7 @@
                 <input type="hidden" name="id" value="<%= dlc != null ? dlc.getId() : "" %>">
 
 
-                <input type="hidden" name="acao" value="<%= dlc != null ? " atualizar" : "cadastrar" %>">
+                <input type="hidden" name="acao" value="<%= dlc != null ? "atualizar" : "cadastrar" %>">
 
 
                 <div>

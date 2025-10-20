@@ -16,7 +16,6 @@ model\Biblioteca.class
 dao\UsuarioDAO.class
 common\ConnectionFactory.class
 dao\GenericDAO.class
-servlets\GenericServlet$1.class
 servlets\LoginServlet.class
 utils\DateUtils.class
 servlets\jogo\JogoServlet.class

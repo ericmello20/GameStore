@@ -31,7 +31,7 @@
               <input type="hidden" name="id" value="<%= usuario != null ? usuario.getId() : "" %>">
 
 
-              <input type="hidden" name="acao" value="<%= usuario != null ? " atualizar" : "cadastrar" %>">
+              <input type="hidden" name="acao" value="<%= usuario != null ? "atualizar" : "cadastrar" %>">
 
 
               <div>

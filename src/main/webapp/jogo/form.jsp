@@ -30,7 +30,7 @@
               <input type="hidden" name="id" value="<%= jogo != null ? jogo.getId() : "" %>">
 
 
-              <input type="hidden" name="acao" value="<%= jogo != null ? " atualizar" : "cadastrar" %>">
+              <input type="hidden" name="acao" value="<%= jogo != null ? "atualizar" : "cadastrar" %>">
 
 
               <div>

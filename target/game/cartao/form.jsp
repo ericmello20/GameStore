@@ -28,7 +28,7 @@
             <form action="<%= urlSubmit %>" method="post">
               <div class="principal-formulario">
                 <input type="hidden" name="id" value="<%= cartao != null ? cartao.getId() : "" %>">
-                <input type="hidden" name="acao" value="<%= cartao != null ? " atualizar" : "cadastrar" %>">
+                <input type="hidden" name="acao" value="<%= cartao != null ? "atualizar" : "cadastrar" %>">
 
                 <!-- Número do Cartão -->
                 <div>
