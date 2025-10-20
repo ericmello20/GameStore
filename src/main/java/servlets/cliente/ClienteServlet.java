@@ -4,13 +4,14 @@ import java.time.LocalDate;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
-
+import model.Biblioteca;
 import model.Usuario;
 import servlets.GenericServlet;
 
 @WebServlet("/usuario")
 public class ClienteServlet extends GenericServlet<Usuario> {
 
+    
     @Override
     protected Usuario preencherEntidade(HttpServletRequest request) {
         String nome = request.getParameter("nome");

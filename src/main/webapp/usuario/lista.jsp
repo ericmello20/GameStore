@@ -1,75 +1,30 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-    <%@ page import="java.util.List" %>
-        <%@ page import="model.Usuario" %>
-            <% List<Usuario> clientes = (List<Usuario>) request.getAttribute("lista"); %>
-                    <!DOCTYPE html>
-                    <html lang="pt-br">
-
-                    <head>
-                        <meta charset="UTF-8">
-                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <title>Listar Clientes</title>
-                        <style>
-                            table {
-                                border-collapse: collapse;
-                                width: 80%;
-                            }
-
-                            th,
-                            td {
-                                border: 1px solid #ccc;
-                                padding: 8px;
-                                text-align: left;
-                            }
-
-                            th {
-                                background: #f2f2f2;
-                            }
-
-                            a {
-                                margin-right: 8px;
-                            }
-                        </style>
-                    </head>
-
-                    <body>
-                        <h2>Lista de Clientes</h2>
-                        <table>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>Email</th>
-                                <th>Data de Nascimento</th>
-                                <th colspan="2">Ações</th>
-                            </tr>
-                            <% if (clientes !=null && !clientes.isEmpty()) { for (Usuario cliente : clientes) { %>
-                                <tr>
-                                    <td>
-                                        <%= cliente.getId() %>
-                                    </td>
-                                    <td>
-                                        <%= cliente.getNome() %>
-                                    </td>
-                                    <td>
-                                        <%= cliente.getEmail() %>
-                                    </td>
-                                    <td>
-                                        <%= cliente.getDataNascimento() !=null ? cliente.getDataNascimento()
-                                            : "Não informado" %>
-                                    </td>
-                                    <td>
-                                        <a href="cliente?acao=buscar&id=<%= cliente.getId() %>">Editar</a>
-                                    </td>
-                                    <td>
-                                        <a href="cliente?acao=deletar&id=<%= cliente.getId() %>">Remover</a>
-                                    </td>
-                                </tr>
-                                <% } } else { %>
-                                    <tr>
-                                        <td colspan="6">Nenhum cliente encontrado.</td>
-                                    </tr>
-                                    <% } %>
-                        </table>
-                    </body>
-
-                    </html>
+<%@ page import="java.util.List" %>
+<%@ page import="model.Usuario" %>
+<% List<Usuario> usuarios = (List<Usuario>) request.getAttribute("lista"); %>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head><meta charset="UTF-8"><title>Listar Usuários</title></head>
+<body>
+  <h2>Lista de Usuários</h2>
+  <a href="${pageContext.request.contextPath}/usuario?acao=inserir">Novo Usuário</a>
+  <table border="1" cellpadding="6" cellspacing="0">
+    <tr><th>ID</th><th>Nome</th><th>Email</th><th>Data Nascimento</th><th colspan="2">Ações</th></tr>
+    <% if (usuarios != null && !usuarios.isEmpty()) {
+         for (Usuario u : usuarios) { %>
+      <tr>
+        <td><%= u.getId() %></td>
+        <td><%= u.getNome() %></td>
+        <td><%= u.getEmail() %></td>
+        <td><%= u.getDataNascimento() != null ? u.getDataNascimento() : "Não informado" %></td>
+        <td><a href="${pageContext.request.contextPath}/usuario?acao=editar&id=<%= u.getId() %>">Editar</a></td>
+        <td><a href="${pageContext.request.contextPath}/usuario?acao=deletar&id=<%= u.getId() %>">Excluir</a></td>
+      </tr>
+    <%   }
+       } else { %>
+      <tr><td colspan="6">Nenhum usuário encontrado.</td></tr>
+    <% } %>
+  </table>
+  <br><a href="${pageContext.request.contextPath}/">Voltar</a>
+</body>
+</html>
