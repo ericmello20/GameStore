@@ -1,15 +1,14 @@
 package servlets.dlc;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-import dao.JogoDAO;
 import model.Dlc;
 import model.Jogo;
+import dao.JogoDAO;
 import servlets.GenericServlet;
 
 @WebServlet("/dlc")
@@ -49,49 +48,55 @@ public class DlcServlet extends GenericServlet<Dlc> {
 
         }
 
-        JogoDAO jogoDAO = new JogoDAO();
-        Jogo jogoBase = null;
-        String jogoIdStr = request.getParameter("jogo_id");
-        if (jogoIdStr == null || jogoIdStr.isEmpty()) {
-
-        } else {
+        String dataLancStr = request.getParameter("dataLancamento");
+        if (dataLancStr != null && !dataLancStr.isEmpty()) {
             try {
-                int jogoId = Integer.parseInt(jogoIdStr);
-                jogoBase = jogoDAO.buscarPorId(jogoId);
+                dlc.setDataLancamento(LocalDate.parse(dataLancStr));
             } catch (Exception e) {
-                e.printStackTrace();
+
             }
         }
 
-        dlc.setJogoBase(jogoBase);
-
-        String dataLancStr = request.getParameter("dataLancamento");
-        if (dataLancStr != null && !dataLancStr.isEmpty()) {
-            dlc.setDataLancamento(LocalDate.parse(dataLancStr));
-        }
-
-        dlc.setDataCriacao(LocalDate.now());
+        dlc.setDataCriacao(java.time.LocalDate.now());
         return dlc;
     }
 
     @Override
-    protected void doPost(jakarta.servlet.http.HttpServletRequest request,
-            jakarta.servlet.http.HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         try {
 
-            Dlc entidade = preencherEntidade(request);
+            String jogoIdStr = request.getParameter("idJogo");
+            Jogo jogoBase = null;
+            if (jogoIdStr == null || jogoIdStr.trim().isEmpty()) {
+                request.setAttribute("erro", "É obrigatório informar o ID do jogo base.");
+            } else {
+                try {
+                    int jogoId = Integer.parseInt(jogoIdStr.trim());
+                    JogoDAO jogoDAO = new JogoDAO();
+                    jogoBase = jogoDAO.buscarPorId(jogoId);
+                    if (jogoBase == null) {
+                        request.setAttribute("erro", "Jogo com ID " + jogoId + " não encontrado.");
+                    }
+                } catch (NumberFormatException nfe) {
+                    request.setAttribute("erro", "ID do jogo inválido.");
+                }
+            }
 
-            if (entidade.getJogoBase() == null) {
-                request.setAttribute("erro", "É obrigatório selecionar um jogo base existente para a DLC.");
-                // repopular lista de jogos para o form
+            if (request.getAttribute("erro") != null) {
+
                 JogoDAO jogoDAO = new JogoDAO();
                 request.setAttribute("jogos", jogoDAO.listarTodos());
+
+                Dlc entidade = preencherEntidade(request);
                 request.setAttribute("entidade", entidade);
                 request.setAttribute("urlSubmit", request.getContextPath() + "/dlc");
                 request.getRequestDispatcher("/dlc/form.jsp").forward(request, response);
                 return;
             }
+
+            Dlc entidade = preencherEntidade(request);
+            entidade.setJogoBase(jogoBase);
 
             boolean ehAtualizacao = entidade.getId() != null;
             if (ehAtualizacao) {
