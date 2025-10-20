@@ -9,6 +9,7 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -18,10 +19,20 @@ public abstract class Conteudo extends Entidade {
     private String descricao;
     private double valor;
     private double pCusto;
+
     @ManyToMany
     @JoinTable(name = "Biblioteca_Conteudo", joinColumns = @JoinColumn(name = "conteudo_id"), inverseJoinColumns = @JoinColumn(name = "biblioteca_id"))
-    private List<Biblioteca> biblioteca = new ArrayList<Biblioteca>();
+    private List<Biblioteca> biblioteca = new ArrayList<>();
+
     private LocalDate dataLancamento;
+
+    // 🔹 ADICIONE ESTE BLOCO
+    @ManyToOne
+    @JoinColumn(name = "id_criador")
+    private Usuario criador;
+
+    public Conteudo() {
+    }
 
     public Conteudo(String nome, String desenvolvedora, String descricao,
             double valor, double pCusto) {
@@ -30,7 +41,15 @@ public abstract class Conteudo extends Entidade {
         setDescricao(descricao);
         setValor(valor);
         setPCusto(pCusto);
+    }
 
+    // 🔹 Getters e Setters
+    public Usuario getCriador() {
+        return criador;
+    }
+
+    public void setCriador(Usuario criador) {
+        this.criador = criador;
     }
 
     public List<Biblioteca> getBiblioteca() {
@@ -88,5 +107,4 @@ public abstract class Conteudo extends Entidade {
     public void setDataLancamento(LocalDate dataLancamento2) {
         this.dataLancamento = dataLancamento2;
     }
-
 }

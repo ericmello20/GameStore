@@ -11,7 +11,6 @@ import servlets.GenericServlet;
 @WebServlet("/usuario")
 public class ClienteServlet extends GenericServlet<Usuario> {
 
-    
     @Override
     protected Usuario preencherEntidade(HttpServletRequest request) {
         String nome = request.getParameter("nome");
@@ -24,15 +23,42 @@ public class ClienteServlet extends GenericServlet<Usuario> {
             dataNascimento = LocalDate.parse(dataNascimentoStr);
         }
 
-        Usuario usuario = new Usuario(nome, email, senha, dataNascimento);
         String idStr = request.getParameter("id");
-        if (idStr != null && !idStr.trim().isEmpty()) {
-            usuario.setId(Integer.parseInt(idStr));
-        }
-        // caso contrário NÃO chame setId(...) — mantenha id como null para novas
-        // entidades
+        Usuario usuario = null;
 
-        usuario.setDataCriacao(LocalDate.now());
+        if (idStr != null && !idStr.trim().isEmpty()) {
+            
+            try {
+                Integer id = Integer.parseInt(idStr);
+                usuario = dao.buscarPorId(id);
+                if (usuario == null) {
+                  
+                    usuario = new Usuario(nome, email, senha, dataNascimento);
+                    usuario.setId(id);
+                } else {
+                   
+                    usuario.setNome(nome);
+                    usuario.setEmail(email);
+                    usuario.setSenha(senha);
+                    usuario.setDataNascimento(dataNascimento);
+                }
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+                usuario = new Usuario(nome, email, senha, dataNascimento);
+            }
+        } else {
+           
+            usuario = new Usuario(nome, email, senha, dataNascimento);
+        }
+
+       
+        if (usuario.getId() == null) {
+            usuario.setDataCriacao(LocalDate.now());
+           
+            Biblioteca biblioteca = new Biblioteca();
+            biblioteca.setCliente(usuario);
+            usuario.setBiblioteca(biblioteca);
+        }
 
         return usuario;
     }

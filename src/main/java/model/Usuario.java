@@ -14,42 +14,40 @@ public class Usuario extends Entidade {
     @jakarta.persistence.Column(nullable = false)
     private String nome;
 
-    @jakarta.persistence.Column(nullable = false, unique = true)
     private String email;
-
-    @jakarta.persistence.Column(nullable = false)
     private String senha;
-
-    @jakarta.persistence.Column(name = "data_nascimento")
     private LocalDate dataNascimento;
 
-    @OneToMany(mappedBy = "criadoPor")
+    @OneToMany(mappedBy = "criador", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Conteudo> conteudosCriados = new ArrayList<>();
 
-    @OneToMany(mappedBy = "alteradoPor")
+    @OneToMany(mappedBy = "alteradoPor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Conteudo> conteudosAlterados = new ArrayList<>();
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cartao> cartoes;
 
-    // UM PARA UM COM BIBLIOTECA POIS OS USUARIOS TERAO APENAS UMA BIBLIOTECA
     @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
     private Biblioteca biblioteca;
 
-    // Construtor padrão necessário para o JPA
     public Usuario() {
         cartoes = new ArrayList<Cartao>();
-        biblioteca = new Biblioteca();
         configurarBiblioteca();
     }
 
-    // CONSTRUTOR
     public Usuario(String nome, String email, String senha, LocalDate dataNascimento) {
-        this(); // chama o construtor padrão
-        setNome(nome);
-        setEmail(email);
-        setSenha(senha);
-        setDataNascimento(dataNascimento);
+        this();
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.dataNascimento = dataNascimento;
+        configurarBiblioteca();
+    }
+
+    private void configurarBiblioteca() {
+        if (this.biblioteca != null) {
+            this.biblioteca.setCliente(this);
+        }
     }
 
     public String getNome() {
@@ -58,13 +56,6 @@ public class Usuario extends Entidade {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    // Método para configurar corretamente o relacionamento bidirecional
-    private void configurarBiblioteca() {
-        if (this.biblioteca != null) {
-            this.biblioteca.setCliente(this);
-        }
     }
 
     public String getEmail() {
@@ -83,28 +74,12 @@ public class Usuario extends Entidade {
         this.senha = senha;
     }
 
-    public List<Cartao> getCartoes() {
-        return this.cartoes;
-    }
-
-    public void setCartoes(List<Cartao> cartoes) {
-        this.cartoes = cartoes;
-    }
-
     public LocalDate getDataNascimento() {
         return this.dataNascimento;
     }
 
     public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
-    }
-
-    public Biblioteca getBiblioteca() {
-        return this.biblioteca;
-    }
-
-    public void setBiblioteca(Biblioteca biblioteca) {
-        this.biblioteca = biblioteca;
     }
 
     public List<Conteudo> getConteudosCriados() {
@@ -123,4 +98,19 @@ public class Usuario extends Entidade {
         this.conteudosAlterados = conteudosAlterados;
     }
 
+    public List<Cartao> getCartoes() {
+        return cartoes;
+    }
+
+    public void setCartoes(List<Cartao> cartoes) {
+        this.cartoes = cartoes;
+    }
+
+    public Biblioteca getBiblioteca() {
+        return this.biblioteca;
+    }
+
+    public void setBiblioteca(Biblioteca biblioteca) {
+        this.biblioteca = biblioteca;
+    }
 }
