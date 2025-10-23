@@ -21,4 +21,5 @@ utils\DateUtils.class
 servlets\jogo\JogoServlet.class
 startup\StartupListener.class
 servlets\dlc\DlcServlet.class
+servlets\postman\PostmanServlet.class
 servlets\GenericServlet.class
