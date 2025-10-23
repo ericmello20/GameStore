@@ -1,46 +1,53 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Transient;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
-@DiscriminatorValue("Cliente")
-public class Usuario extends Entidade{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Usuario extends Entidade {
+    @jakarta.persistence.Column(nullable = false)
     private String nome;
+
     private String email;
     private String senha;
-    @Transient
+    private LocalDate dataNascimento;
+
+    @OneToMany(mappedBy = "criador", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Conteudo> conteudosCriados = new ArrayList<>();
+
+    @OneToMany(mappedBy = "alteradoPor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Conteudo> conteudosAlterados = new ArrayList<>();
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cartao> cartoes;
-    // private LocalDate dataCadastro;
-    @Transient
+
+    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
     private Biblioteca biblioteca;
-    // private LocalDate dataNascimento;
 
-    public Usuario(String nome, String email, String senha) {
+    public Usuario() {
         cartoes = new ArrayList<Cartao>();
-        biblioteca = new Biblioteca();
-        setNome(nome);
-        setEmail(email);
-        setSenha(senha);
-
+        configurarBiblioteca();
     }
 
-    public Integer getId() {
-        return this.id;
+    public Usuario(String nome, String email, String senha, LocalDate dataNascimento) {
+        this();
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.dataNascimento = dataNascimento;
+        configurarBiblioteca();
     }
 
-    public void setId(int id) {
-        this.id = id;
+    private void configurarBiblioteca() {
+        if (this.biblioteca != null) {
+            this.biblioteca.setCliente(this);
+        }
     }
 
     public String getNome() {
@@ -67,29 +74,37 @@ public class Usuario extends Entidade{
         this.senha = senha;
     }
 
+    public LocalDate getDataNascimento() {
+        return this.dataNascimento;
+    }
+
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public List<Conteudo> getConteudosCriados() {
+        return this.conteudosCriados;
+    }
+
+    public void setConteudosCriados(List<Conteudo> conteudosCriados) {
+        this.conteudosCriados = conteudosCriados;
+    }
+
+    public List<Conteudo> getConteudosAlterados() {
+        return this.conteudosAlterados;
+    }
+
+    public void setConteudosAlterados(List<Conteudo> conteudosAlterados) {
+        this.conteudosAlterados = conteudosAlterados;
+    }
+
     public List<Cartao> getCartoes() {
-        return this.cartoes;
+        return cartoes;
     }
 
     public void setCartoes(List<Cartao> cartoes) {
         this.cartoes = cartoes;
     }
-    /*
-     * public LocalDate getDataCadastro() {
-     * return this.dataCadastro;
-     * }
-     * 
-     * public void setDataCadastro(LocalDate dataCadastro) {
-     * this.dataCadastro = dataCadastro;
-     * }
-     * public String getDataNascimento() {
-     * return this.dataNascimento;
-     * }
-     * 
-     * public void setDataNascimento(String dataNascimento) {
-     * this.dataNascimento = dataNascimento;
-     * }
-     */
 
     public Biblioteca getBiblioteca() {
         return this.biblioteca;
@@ -98,5 +113,4 @@ public class Usuario extends Entidade{
     public void setBiblioteca(Biblioteca biblioteca) {
         this.biblioteca = biblioteca;
     }
-
 }

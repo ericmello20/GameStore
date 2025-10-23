@@ -1,11 +1,24 @@
-C:\Meus Estudos Dev\MyDevStudies\Programação de Aplicações Coorporativas\Project Game Store\game\src\main\java\singleton\ConectionSingleton.java
-C:\Meus Estudos Dev\MyDevStudies\Programação de Aplicações Coorporativas\Project Game Store\game\src\main\java\model\Carrinho.java
-C:\Meus Estudos Dev\MyDevStudies\Programação de Aplicações Coorporativas\Project Game Store\game\src\main\java\utils\HibernateUtil.java
-C:\Meus Estudos Dev\MyDevStudies\Programação de Aplicações Coorporativas\Project Game Store\game\src\main\java\dao\UsuarioDao.java
-C:\Meus Estudos Dev\MyDevStudies\Programação de Aplicações Coorporativas\Project Game Store\game\src\main\java\model\Dlc.java
-C:\Meus Estudos Dev\MyDevStudies\Programação de Aplicações Coorporativas\Project Game Store\game\src\main\java\servlets\CadastroClienteServlet.java
-C:\Meus Estudos Dev\MyDevStudies\Programação de Aplicações Coorporativas\Project Game Store\game\src\main\java\model\Usuario.java
-C:\Meus Estudos Dev\MyDevStudies\Programação de Aplicações Coorporativas\Project Game Store\game\src\main\java\model\Jogo.java
-C:\Meus Estudos Dev\MyDevStudies\Programação de Aplicações Coorporativas\Project Game Store\game\src\main\java\abstractclass\Conteudo.java
-C:\Meus Estudos Dev\MyDevStudies\Programação de Aplicações Coorporativas\Project Game Store\game\src\main\java\model\Cartao.java
-C:\Meus Estudos Dev\MyDevStudies\Programação de Aplicações Coorporativas\Project Game Store\game\src\main\java\model\Biblioteca.java
+C:\projeto game store\GameStore\src\main\java\common\ConnectionFactory.java
+C:\projeto game store\GameStore\src\main\java\dao\BibliotecaDAO.java
+C:\projeto game store\GameStore\src\main\java\dao\CartaoDAO.java
+C:\projeto game store\GameStore\src\main\java\dao\DlcDAO.java
+C:\projeto game store\GameStore\src\main\java\dao\GenericDAO.java
+C:\projeto game store\GameStore\src\main\java\dao\JogoDAO.java
+C:\projeto game store\GameStore\src\main\java\dao\UsuarioDAO.java
+C:\projeto game store\GameStore\src\main\java\model\Biblioteca.java
+C:\projeto game store\GameStore\src\main\java\model\Carrinho.java
+C:\projeto game store\GameStore\src\main\java\model\Cartao.java
+C:\projeto game store\GameStore\src\main\java\model\Conteudo.java
+C:\projeto game store\GameStore\src\main\java\model\Dlc.java
+C:\projeto game store\GameStore\src\main\java\model\Entidade.java
+C:\projeto game store\GameStore\src\main\java\model\Jogo.java
+C:\projeto game store\GameStore\src\main\java\model\Usuario.java
+C:\projeto game store\GameStore\src\main\java\servlets\cartao\CartaoServlet.java
+C:\projeto game store\GameStore\src\main\java\servlets\cliente\ClienteServlet.java
+C:\projeto game store\GameStore\src\main\java\servlets\dlc\DlcServlet.java
+C:\projeto game store\GameStore\src\main\java\servlets\GenericServlet.java
+C:\projeto game store\GameStore\src\main\java\servlets\jogo\JogoServlet.java
+C:\projeto game store\GameStore\src\main\java\servlets\LoginServlet.java
+C:\projeto game store\GameStore\src\main\java\startup\StartupListener.java
+C:\projeto game store\GameStore\src\main\java\utils\DateUtils.java
+C:\projeto game store\GameStore\src\main\java\utils\HibernateUtil.java
