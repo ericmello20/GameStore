@@ -2,6 +2,8 @@ package br.cefetrj.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
@@ -15,11 +17,10 @@ public abstract class Conteudo extends Entidade {
     private String nome;
     private String desenvolvedora;
     private String descricao;
-    private double valor;
-    private double pCusto;
-
+    private Double valor;
+    @JsonProperty("pCusto")
+    private Double pCusto;
     private LocalDate dataLancamento;
-
     @ManyToOne
     @JoinColumn(name = "id_criador")
     private Usuario criador;
@@ -28,12 +29,13 @@ public abstract class Conteudo extends Entidade {
     }
 
     public Conteudo(String nome, String desenvolvedora, String descricao,
-            double valor, double pCusto) {
+            Double valor, Double pCusto, LocalDate dataLancamento) {
         setNome(nome);
         setDesenvolvedora(desenvolvedora);
         setDescricao(descricao);
         setValor(valor);
-        setPCusto(pCusto);
+        setpCusto(pCusto);
+        setDataLancamento(dataLancamento);
     }
 
     public Usuario getCriador() {
@@ -68,19 +70,21 @@ public abstract class Conteudo extends Entidade {
         this.descricao = descricao;
     }
 
-    public double getValor() {
+    public Double getValor() {
         return this.valor;
     }
 
-    public void setValor(double valor) {
+    public void setValor(Double valor) {
         this.valor = valor;
     }
 
-    public double getPCusto() {
+    @JsonProperty("pCusto")
+    public Double getpCusto() {
         return this.pCusto;
     }
 
-    public void setPCusto(double pCusto) {
+    @JsonProperty("pCusto")
+    public void setpCusto(Double pCusto) {
         this.pCusto = pCusto;
     }
 
@@ -88,7 +92,7 @@ public abstract class Conteudo extends Entidade {
         return this.dataLancamento;
     }
 
-    public void setDataLancamento(LocalDate dataLancamento2) {
-        this.dataLancamento = dataLancamento2;
+    public void setDataLancamento(LocalDate dataLancamento) {
+        this.dataLancamento = dataLancamento;
     }
 }

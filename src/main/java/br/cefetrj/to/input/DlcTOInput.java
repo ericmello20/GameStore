@@ -1,6 +1,7 @@
 package br.cefetrj.to.input;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import br.cefetrj.model.Dlc;
 import br.cefetrj.model.Jogo;
@@ -11,9 +12,10 @@ public class DlcTOInput implements Serializable {
     private String nome;
     private String desenvolvedora;
     private String descricao;
-    private double valor;
-    private double pCusto;
+    private Double valor;
+    private Double pCusto;
     private Integer jogoBaseId; // apenas o ID do jogo base
+    private LocalDate dataLancamento;
 
     public Integer getId() {
         return id;
@@ -47,19 +49,19 @@ public class DlcTOInput implements Serializable {
         this.descricao = descricao;
     }
 
-    public double getValor() {
+    public Double getValor() {
         return valor;
     }
 
-    public void setValor(double valor) {
+    public void setValor(Double valor) {
         this.valor = valor;
     }
 
-    public double getpCusto() {
+    public Double getpCusto() {
         return pCusto;
     }
 
-    public void setpCusto(double pCusto) {
+    public void setpCusto(Double pCusto) {
         this.pCusto = pCusto;
     }
 
@@ -72,8 +74,16 @@ public class DlcTOInput implements Serializable {
     }
 
     public Dlc build(Jogo jogoBase) {
-        var dlc = new Dlc(nome, desenvolvedora, descricao, valor, pCusto, jogoBase);
+        var dlc = new Dlc(nome, desenvolvedora, descricao, valor, pCusto, jogoBase, dataLancamento);
         dlc.setId(id);
         return dlc;
+    }
+
+    public LocalDate getDataLancamento() {
+        return dataLancamento;
+    }
+
+    public void setDataLancamento(LocalDate dataLancamento) {
+        this.dataLancamento = dataLancamento;
     }
 }

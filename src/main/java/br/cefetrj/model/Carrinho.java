@@ -3,7 +3,7 @@ package br.cefetrj.model;
 public class Carrinho {
     private String nome;
     private String tipo; // Ex: "Jogo", "DLC"
-    private double preco;
+    private Double preco;
 
     public String getNome() {
         return nome;
@@ -21,11 +21,11 @@ public class Carrinho {
         this.tipo = tipo;
     }
 
-    public double getPreco() {
+    public Double getPreco() {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(Double preco) {
         this.preco = preco;
     }
 }

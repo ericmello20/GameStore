@@ -1,6 +1,7 @@
 package br.cefetrj.to.input;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import br.cefetrj.model.Jogo;
 
@@ -10,8 +11,9 @@ public class JogoTOInput implements Serializable {
     private String nome;
     private String desenvolvedora;
     private String descricao;
-    private double valor;
-    private double pCusto;
+    private Double valor;
+    private Double pCusto;
+    private LocalDate dataLancamento;
 
     public Integer getId() {
         return id;
@@ -45,24 +47,24 @@ public class JogoTOInput implements Serializable {
         this.descricao = descricao;
     }
 
-    public double getValor() {
+    public Double getValor() {
         return valor;
     }
 
-    public void setValor(double valor) {
+    public void setValor(Double valor) {
         this.valor = valor;
     }
 
-    public double getpCusto() {
+    public Double getpCusto() {
         return pCusto;
     }
 
-    public void setpCusto(double pCusto) {
+    public void setpCusto(Double pCusto) {
         this.pCusto = pCusto;
     }
 
     public Jogo build() {
-        var jogo = new Jogo(nome, desenvolvedora, descricao, valor, pCusto);
+        var jogo = new Jogo(nome, desenvolvedora, descricao, valor, pCusto, dataLancamento);
         jogo.setId(id);
         return jogo;
     }

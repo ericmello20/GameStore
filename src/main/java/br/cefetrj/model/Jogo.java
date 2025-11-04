@@ -1,5 +1,6 @@
 package br.cefetrj.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,12 +18,12 @@ public class Jogo extends Conteudo {
     private List<Dlc> dlcs = new ArrayList<>();
 
     public Jogo() {
-        super(null, null, null, 0, 0);
+        super(null, null, null, 0.0, 0.0, null);
     }
 
     public Jogo(String nome, String desenvolvedora, String descricao,
-            double valor, double pCusto) {
-        super(nome, desenvolvedora, descricao, valor, pCusto);
+            double valor, Double pCusto, LocalDate dataLancamento) {
+        super(nome, desenvolvedora, descricao, valor, pCusto, dataLancamento);
     }
 
     public List<Dlc> getDlcs() {

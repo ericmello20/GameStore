@@ -1,6 +1,7 @@
 package br.cefetrj.to.output;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
 import br.cefetrj.model.Jogo;
@@ -14,6 +15,7 @@ public class JogoTOOutput implements Serializable {
     private double valor;
     private double pCusto;
     private List<DlcTOOutput> dlcs;
+    private LocalDate dataLancamento;
 
     public JogoTOOutput(Jogo jogo) {
         this(jogo, true);
@@ -25,8 +27,8 @@ public class JogoTOOutput implements Serializable {
         this.desenvolvedora = jogo.getDesenvolvedora();
         this.descricao = jogo.getDescricao();
         this.valor = jogo.getValor();
-        this.pCusto = jogo.getPCusto();
-
+        this.pCusto = jogo.getpCusto();
+        this.dataLancamento = jogo.getDataLancamento();
         if (incluirDlcs && jogo.getDlcs() != null) {
             this.dlcs = jogo.getDlcs()
                     .stream()
@@ -89,5 +91,13 @@ public class JogoTOOutput implements Serializable {
 
     public void setDlcs(List<DlcTOOutput> dlcs) {
         this.dlcs = dlcs;
+    }
+
+    public LocalDate getDataLancamento() {
+        return dataLancamento;
+    }
+
+    public void setDataLancamento(LocalDate dataLancamento) {
+        this.dataLancamento = dataLancamento;
     }
 }

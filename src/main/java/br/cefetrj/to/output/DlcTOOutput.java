@@ -1,6 +1,7 @@
 package br.cefetrj.to.output;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import br.cefetrj.model.Dlc;
 
@@ -10,9 +11,10 @@ public class DlcTOOutput implements Serializable {
     private String nome;
     private String desenvolvedora;
     private String descricao;
-    private double valor;
-    private double pCusto;
+    private Double valor;
+    private Double pCusto;
     private JogoTOOutput jogoBase;
+    private LocalDate dataLancamento;
 
     public DlcTOOutput(Dlc dlc) {
         this.id = dlc.getId();
@@ -20,8 +22,8 @@ public class DlcTOOutput implements Serializable {
         this.desenvolvedora = dlc.getDesenvolvedora();
         this.descricao = dlc.getDescricao();
         this.valor = dlc.getValor();
-        this.pCusto = dlc.getPCusto();
-
+        this.pCusto = dlc.getpCusto();
+        this.dataLancamento = dlc.getDataLancamento();
         if (dlc.getJogoBase() != null) {
             this.jogoBase = new JogoTOOutput(dlc.getJogoBase(), false);
         }
@@ -59,19 +61,19 @@ public class DlcTOOutput implements Serializable {
         this.descricao = descricao;
     }
 
-    public double getValor() {
+    public Double getValor() {
         return valor;
     }
 
-    public void setValor(double valor) {
+    public void setValor(Double valor) {
         this.valor = valor;
     }
 
-    public double getpCusto() {
+    public Double getpCusto() {
         return pCusto;
     }
 
-    public void setpCusto(double pCusto) {
+    public void setpCusto(Double pCusto) {
         this.pCusto = pCusto;
     }
 
@@ -81,5 +83,13 @@ public class DlcTOOutput implements Serializable {
 
     public void setJogoBase(JogoTOOutput jogoBase) {
         this.jogoBase = jogoBase;
+    }
+
+    public LocalDate getDataLancamento() {
+        return dataLancamento;
+    }
+
+    public void setDataLancamento(LocalDate dataLancamento) {
+        this.dataLancamento = dataLancamento;
     }
 }

@@ -1,5 +1,7 @@
 package br.cefetrj.model;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -12,12 +14,12 @@ public class Dlc extends Conteudo {
     private Jogo jogoBase;
 
     public Dlc() {
-        super(null, null, null, 0, 0);
+        super(null, null, null, 0.0, 0.0, null);
     }
 
     public Dlc(String nome, String desenvolvedora, String descricao,
-            double valor, double pCusto, Jogo jogoBase) {
-        super(nome, desenvolvedora, descricao, valor, pCusto);
+            Double valor, Double pCusto, Jogo jogoBase, LocalDate dataLancamento) {
+        super(nome, desenvolvedora, descricao, valor, pCusto, dataLancamento);
         setJogoBase(jogoBase);
     }
 
