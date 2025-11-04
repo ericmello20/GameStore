@@ -1,41 +1,49 @@
 package br.cefetrj.model;
 
 import java.time.LocalDate;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
-
 import jakarta.persistence.ManyToOne;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Conteudo extends Entidade {
+
+    @Column(nullable = false)
     private String nome;
+
     private String desenvolvedora;
+
     private String descricao;
-    private Double valor;
-    @JsonProperty("pCusto")
-    private Double pCusto;
+
+    @Column(nullable = false)
+    private Double valor = 0.0;
+
+    @Column(name = "p_custo", nullable = false)
+    private Double pCusto = 0.0;
+
     private LocalDate dataLancamento;
+
     @ManyToOne
     @JoinColumn(name = "id_criador")
     private Usuario criador;
 
     public Conteudo() {
+        this.valor = 0.0;
+        this.pCusto = 0.0;
     }
 
     public Conteudo(String nome, String desenvolvedora, String descricao,
             Double valor, Double pCusto, LocalDate dataLancamento) {
-        setNome(nome);
-        setDesenvolvedora(desenvolvedora);
-        setDescricao(descricao);
-        setValor(valor);
-        setpCusto(pCusto);
-        setDataLancamento(dataLancamento);
+        this.nome = nome;
+        this.desenvolvedora = desenvolvedora;
+        this.descricao = descricao;
+        this.valor = (valor != null) ? valor : 0.0;
+        this.pCusto = (pCusto != null) ? pCusto : 0.0;
+        this.dataLancamento = dataLancamento;
     }
 
     public Usuario getCriador() {
@@ -75,17 +83,15 @@ public abstract class Conteudo extends Entidade {
     }
 
     public void setValor(Double valor) {
-        this.valor = valor;
+        this.valor = (valor != null) ? valor : 0.0;
     }
 
-    @JsonProperty("pCusto")
     public Double getpCusto() {
         return this.pCusto;
     }
 
-    @JsonProperty("pCusto")
     public void setpCusto(Double pCusto) {
-        this.pCusto = pCusto;
+        this.pCusto = (pCusto != null) ? pCusto : 0.0;
     }
 
     public LocalDate getDataLancamento() {
