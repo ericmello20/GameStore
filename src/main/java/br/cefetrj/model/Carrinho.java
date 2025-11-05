@@ -2,7 +2,7 @@ package br.cefetrj.model;
 
 public class Carrinho {
     private String nome;
-    private String tipo; // Ex: "Jogo", "DLC"
+    private String tipo;
     private Double preco;
 
     public String getNome() {

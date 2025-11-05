@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -65,4 +66,26 @@ public class JogoController {
         return ResponseEntity.noContent().build();
 
     }
+
+    @PutMapping("/{id}")
+    @ApiOperation(value = "Atualizar registro", notes = "Atualiza o registro de acordo com o ID repassado")
+    public ResponseEntity<Jogo> update(
+            @PathVariable("id") Integer id,
+            @RequestBody Jogo input) {
+
+        return jogoService.findById(id)
+                .map(existing -> {
+                    existing.setNome(input.getNome());
+                    existing.setDesenvolvedora(input.getDesenvolvedora());
+                    existing.setDescricao(input.getDescricao());
+                    existing.setValor(input.getValor());
+                    existing.setpCusto(input.getpCusto());
+                    existing.setDataLancamento(input.getDataLancamento());
+
+                    Jogo atualizado = jogoService.save(existing);
+                    return ResponseEntity.ok(atualizado);
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
 }

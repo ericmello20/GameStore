@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -72,6 +73,24 @@ public class UsuarioController {
         usuarioService.delete(id);
         return ResponseEntity.noContent().build();
 
+    }
+
+    @PutMapping("/{id}")
+    @ApiOperation(value = "Atualizar registro", notes = "Atualiza o registro de acordo com o ID repassado")
+    public ResponseEntity<Usuario> update(
+            @PathVariable("id") Integer id,
+            @RequestBody Usuario input) {
+
+        return usuarioService.findById(id)
+                .map(existing -> {
+                    existing.setNome(input.getNome());
+                    existing.setEmail(input.getEmail());
+                    existing.setSenha(input.getSenha());
+                    existing.setDataNascimento(input.getDataNascimento());
+                    Usuario atualizado = usuarioService.save(existing);
+                    return ResponseEntity.ok(atualizado);
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 }
