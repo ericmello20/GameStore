@@ -4,17 +4,22 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Jogo extends Conteudo {
 
     @ManyToMany(mappedBy = "jogos")
+    
     private List<Biblioteca> biblioteca = new ArrayList<>();
     @OneToMany(mappedBy = "jogoBase", cascade = CascadeType.ALL, orphanRemoval = true)
+    
     private List<Dlc> dlcs = new ArrayList<>();
 
     public Jogo() {

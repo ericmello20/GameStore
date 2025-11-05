@@ -12,17 +12,22 @@ public class UsuarioTOOutput implements Serializable {
     private String email;
     private LocalDate dataNascimento;
     private List<CartaoTOOutput> cartoes;
+    private Integer idBiblioteca;
 
     public UsuarioTOOutput(Usuario u) {
         this.id = u.getId();
         this.nome = u.getNome();
         this.email = u.getEmail();
         this.dataNascimento = u.getDataNascimento();
+
         if (u.getCartoes() != null) {
-            this.cartoes = u.getCartoes().stream().map(cartao -> {
-                CartaoTOOutput cartaoTO = new CartaoTOOutput(cartao, false);
-                return cartaoTO;
-            }).toList();
+            this.cartoes = u.getCartoes().stream()
+                    .map(c -> new CartaoTOOutput(c, false))
+                    .toList();
+        }
+
+        if (u.getBiblioteca() != null) {
+            this.idBiblioteca = u.getBiblioteca().getId();
         }
     }
 
@@ -64,6 +69,14 @@ public class UsuarioTOOutput implements Serializable {
 
     public void setCartoes(List<CartaoTOOutput> cartoes) {
         this.cartoes = cartoes;
+    }
+
+    public Integer getIdBiblioteca() {
+        return idBiblioteca;
+    }
+
+    public void setIdBiblioteca(Integer idBiblioteca) {
+        this.idBiblioteca = idBiblioteca;
     }
 
 }

@@ -2,15 +2,19 @@ package br.cefetrj.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Dlc extends Conteudo {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "jogo_id", nullable = false)
+
     private Jogo jogoBase;
 
     public Dlc() {

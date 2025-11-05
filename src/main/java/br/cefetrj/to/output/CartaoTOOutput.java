@@ -1,40 +1,41 @@
 package br.cefetrj.to.output;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import br.cefetrj.model.Cartao;
 
-public class CartaoTOOutput {
+public class CartaoTOOutput implements Serializable {
     private Integer id;
     private String bandeira;
     private String numero;
     private String cvv;
     private LocalDate validade;
     private String cpfTitular;
-    private UsuarioTOOutput usuario;
+    private Integer idUsuario; // <- evita recursão
 
     public CartaoTOOutput(Cartao cartao) {
         this.id = cartao.getId();
         this.bandeira = cartao.getBandeira();
         this.numero = cartao.getNumero();
         this.cvv = cartao.getCvv();
+        this.validade = cartao.getValidade();
+        this.cpfTitular = cartao.getCpfTitular();
         if (cartao.getUsuario() != null) {
-            this.usuario = new UsuarioTOOutput(cartao.getUsuario());
+            this.idUsuario = cartao.getUsuario().getId();
         }
     }
 
-    public CartaoTOOutput(Cartao cartao, boolean carregarUsuario) {
-        UsuarioTOOutput usuarioTO = null;
-        if (carregarUsuario && cartao.getUsuario() != null) {
-            usuarioTO = new UsuarioTOOutput(cartao.getUsuario());
-        }
+    public CartaoTOOutput(Cartao cartao, boolean incluirUsuario) {
         this.id = cartao.getId();
         this.bandeira = cartao.getBandeira();
         this.numero = cartao.getNumero();
         this.cvv = cartao.getCvv();
         this.validade = cartao.getValidade();
         this.cpfTitular = cartao.getCpfTitular();
-        this.usuario = usuarioTO;
+        if (incluirUsuario && cartao.getUsuario() != null) {
+            this.idUsuario = cartao.getUsuario().getId();
+        }
     }
 
     public Integer getId() {
@@ -85,12 +86,21 @@ public class CartaoTOOutput {
         this.cpfTitular = cpfTitular;
     }
 
-    public UsuarioTOOutput getUsuario() {
-        return usuario;
+    /*
+     * public UsuarioTOOutput getUsuario() {
+     * return usuario;
+     * }
+     * 
+     * public void setUsuario(UsuarioTOOutput usuario) {
+     * this.usuario = usuario;
+     * }
+     */
+    public Integer getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setUsuario(UsuarioTOOutput usuario) {
-        this.usuario = usuario;
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
 }

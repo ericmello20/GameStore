@@ -2,14 +2,18 @@ package br.cefetrj.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Cartao extends Entidade {
     @ManyToOne(optional = true)
     @JoinColumn(name = "usuario_id")
+
     private Usuario usuario;
     private String bandeira;
     private String numero;

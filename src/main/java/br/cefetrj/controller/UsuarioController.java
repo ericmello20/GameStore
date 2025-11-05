@@ -6,25 +6,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.*;
 
 import br.cefetrj.model.Biblioteca;
 import br.cefetrj.model.Usuario;
 import br.cefetrj.service.UsuarioService;
+import br.cefetrj.to.input.UsuarioTOInput;
+import br.cefetrj.to.output.UsuarioTOOutput;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping(value = "/usuarios", produces = MediaType.APPLICATION_JSON_VALUE)
 @Api(value = "/usuarios", tags = { "Usuarios - UsuarioController" })
 public class UsuarioController {
+
     private final UsuarioService usuarioService;
 
     @Autowired
@@ -34,10 +30,8 @@ public class UsuarioController {
 
     @PostMapping
     @ApiOperation(value = "Salvar registro", notes = "Salva um novo registro no banco de dados")
-    public ResponseEntity<Usuario> save(@RequestBody Usuario input) {
-        final var usuario = input;
-
-        System.out.println("Salvando usuario: " + usuario.getNome());
+    public ResponseEntity<UsuarioTOOutput> save(@RequestBody UsuarioTOInput input) {
+        Usuario usuario = input.build();
 
         if (usuario.getBiblioteca() == null) {
             var biblioteca = new Biblioteca();
@@ -45,41 +39,41 @@ public class UsuarioController {
             usuario.setBiblioteca(biblioteca);
         }
 
-        final Usuario created = usuarioService.save(usuario);
-
-        return new ResponseEntity<>(created, HttpStatus.CREATED);
+        Usuario created = usuarioService.save(usuario);
+        return new ResponseEntity<>(new UsuarioTOOutput(created), HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping("/{id}")
     @ApiOperation(value = "Pesquisar por ID", notes = "Retorna o registro de acordo com o ID repassado")
-    public ResponseEntity<Usuario> findById(@PathVariable("id") Integer id) {
-
-        return ResponseEntity.ok(usuarioService.findById(id).orElse(null));
-
+    public ResponseEntity<UsuarioTOOutput> findById(@PathVariable("id") Integer id) {
+        return usuarioService.findById(id)
+                .map(usuario -> ResponseEntity.ok(new UsuarioTOOutput(usuario)))
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping
     @ApiOperation(value = "Listar todos", notes = "Retorna todos os registros")
-    public ResponseEntity<List<Usuario>> findAll() {
+    public ResponseEntity<List<UsuarioTOOutput>> findAll() {
+        List<UsuarioTOOutput> usuarios = usuarioService.findAll()
+                .stream()
+                .map(UsuarioTOOutput::new)
+                .toList();
 
-        return ResponseEntity.ok(usuarioService.findAll());
-
+        return ResponseEntity.ok(usuarios);
     }
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "Deletar por ID", notes = "Remove o registro de acordo com o ID repassado")
     public ResponseEntity<Void> deleteById(@PathVariable("id") Integer id) {
-
         usuarioService.delete(id);
         return ResponseEntity.noContent().build();
-
     }
 
     @PutMapping("/{id}")
     @ApiOperation(value = "Atualizar registro", notes = "Atualiza o registro de acordo com o ID repassado")
-    public ResponseEntity<Usuario> update(
+    public ResponseEntity<UsuarioTOOutput> update(
             @PathVariable("id") Integer id,
-            @RequestBody Usuario input) {
+            @RequestBody UsuarioTOInput input) {
 
         return usuarioService.findById(id)
                 .map(existing -> {
@@ -87,10 +81,10 @@ public class UsuarioController {
                     existing.setEmail(input.getEmail());
                     existing.setSenha(input.getSenha());
                     existing.setDataNascimento(input.getDataNascimento());
+
                     Usuario atualizado = usuarioService.save(existing);
-                    return ResponseEntity.ok(atualizado);
+                    return ResponseEntity.ok(new UsuarioTOOutput(atualizado));
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
-
 }

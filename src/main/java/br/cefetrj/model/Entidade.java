@@ -2,6 +2,8 @@ package br.cefetrj.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -10,6 +12,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Entidade {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,10 +22,12 @@ public class Entidade {
     private LocalDate dataUltimaAlteracao;
     @ManyToOne
     @JoinColumn(name = "criado_por_id")
+    
     private Usuario criadoPor;
 
     @ManyToOne
     @JoinColumn(name = "alterado_por_id")
+    
     private Usuario alteradoPor;
 
     public Integer getId() {

@@ -1,6 +1,9 @@
 package br.cefetrj.model;
 
 import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Inheritance;
@@ -9,6 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Conteudo extends Entidade {
 
@@ -29,6 +33,7 @@ public abstract class Conteudo extends Entidade {
 
     @ManyToOne
     @JoinColumn(name = "id_criador")
+    
     private Usuario criador;
 
     public Conteudo() {

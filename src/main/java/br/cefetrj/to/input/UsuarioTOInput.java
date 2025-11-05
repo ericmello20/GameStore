@@ -5,8 +5,8 @@ import java.time.LocalDate;
 
 import br.cefetrj.model.Usuario;
 
-public class UsuarioTOInput implements Serializable{
-    
+public class UsuarioTOInput implements Serializable {
+
     private Integer id;
     private String nome;
     private String email;

@@ -4,12 +4,15 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Usuario extends Entidade {
     @jakarta.persistence.Column(nullable = false)
     private String nome;
@@ -18,15 +21,19 @@ public class Usuario extends Entidade {
     private LocalDate dataNascimento;
 
     @OneToMany(mappedBy = "criador", cascade = CascadeType.ALL, orphanRemoval = true)
+
     private List<Conteudo> conteudosCriados = new ArrayList<>();
 
     @OneToMany(mappedBy = "alteradoPor", cascade = CascadeType.ALL, orphanRemoval = true)
+
     private List<Conteudo> conteudosAlterados = new ArrayList<>();
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+
     private List<Cartao> cartoes = new ArrayList<>();
 
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+
     private Biblioteca biblioteca;
 
     public String getNome() {

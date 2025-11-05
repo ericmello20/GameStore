@@ -3,35 +3,47 @@ package br.cefetrj.to.output;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import br.cefetrj.model.Biblioteca;
 
 public class BibliotecaTOOutput implements Serializable {
 
-    private UsuarioTOOutput usuario;
+    private Integer id;
+    private Integer idUsuario; 
     private List<JogoTOOutput> jogos = new ArrayList<>();
 
-    public BibliotecaTOOutput() { }
+    public BibliotecaTOOutput() {
+    }
 
     public BibliotecaTOOutput(Biblioteca biblioteca) {
+        this.id = biblioteca.getId();
+
+    
         if (biblioteca.getUsuario() != null) {
-            this.usuario = new UsuarioTOOutput(biblioteca.getUsuario());
+            this.idUsuario = biblioteca.getUsuario().getId();
         }
 
         if (biblioteca.getJogos() != null) {
             this.jogos = biblioteca.getJogos().stream()
-                    .map(JogoTOOutput::new) // Construtor de JogoTOOutput que recebe entidade Jogo
+                    .map(jogo -> new JogoTOOutput(jogo, false))
                     .toList();
         }
     }
 
-    // Getters e setters
-    public UsuarioTOOutput getUsuario() {
-        return usuario;
+   
+    public Integer getId() {
+        return id;
     }
 
-    public void setUsuario(UsuarioTOOutput usuario) {
-        this.usuario = usuario;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public List<JogoTOOutput> getJogos() {

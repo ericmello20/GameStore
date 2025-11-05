@@ -14,7 +14,7 @@ public class DlcTOInput implements Serializable {
     private String descricao;
     private Double valor;
     private Double pCusto;
-    private Integer jogoBaseId; // apenas o ID do jogo base
+    private Jogo jogoBase;
     private LocalDate dataLancamento;
 
     public Integer getId() {
@@ -65,15 +65,15 @@ public class DlcTOInput implements Serializable {
         this.pCusto = pCusto;
     }
 
-    public Integer getJogoBaseId() {
-        return jogoBaseId;
+    public Jogo getJogoBase() {
+        return jogoBase;
     }
 
-    public void setJogoBaseId(Integer jogoBaseId) {
-        this.jogoBaseId = jogoBaseId;
+    public void setJogoBase(Jogo jogoBase) {
+        this.jogoBase = jogoBase;
     }
 
-    public Dlc build(Jogo jogoBase) {
+    public Dlc build() {
         var dlc = new Dlc(nome, desenvolvedora, descricao, valor, pCusto, jogoBase, dataLancamento);
         dlc.setId(id);
         return dlc;

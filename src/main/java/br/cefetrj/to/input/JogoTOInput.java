@@ -68,4 +68,12 @@ public class JogoTOInput implements Serializable {
         jogo.setId(id);
         return jogo;
     }
+
+    public LocalDate getDataLancamento() {
+        return dataLancamento;
+    }
+
+    public void setDataLancamento(LocalDate dataLancamento) {
+        this.dataLancamento = dataLancamento;
+    }
 }
