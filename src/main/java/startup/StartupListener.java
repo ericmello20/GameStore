@@ -1,9 +1,9 @@
 package startup;
 
+import br.cefetrj.utils.HibernateUtil;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
-import utils.HibernateUtil;
 
 @WebListener
 public class StartupListener implements ServletContextListener {
